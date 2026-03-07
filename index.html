@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"> <head>=<meta charset="UTF-8">>
+<head>
+<meta<style>charset  body { font-family: sans-serif; text-align: center; background: #f0f0f0; }"UTF-8"  #canvasContainer { position: relative; display: inline-block; margin-top: 20px; }
+  canvas { border: 2px solid #333; cursor: crosshair; }   #palette { margin-top: 15px; }=  .color { display: inline-block; width: 30px; height: 30px; margin: 2px; border: 1px solid #000; cursor: pointer; }   #controls { margin-top: 10px; }=  button { margin: 0 5px; padding: 8px 12px; font-size: 14px; }>
+<title></head></title>
+<style>
+<h1>KidsPaint: Tutu Parrot Coloring</h1>body<p>Click a color, then draw on the parrot! Click "See the real version" to watch the colored video.</p>sans-serif; text-align: <div id="canvasContainer">; background: #f0f0f0; }
+  </div>canvasContainer { position: <div id="palette"></div>; display: inline-block<div id="controls">20  <button id="clearBtn">Clear</button>; }
+  </div> { border: 2<script> // --- Setup Canvas --- #333; cursor: const canvas = document.getElementById('paintCanvas');; }
+  const img = new Image();paletteimg.src = 'tutu_bw.png'; // Qara-ağ şəkil repo-da15img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);; }
+// --- Colors Palette ---colorconst colors = ['#FF0000','#00FF00','#0000FF','#FFFF00','#FF00FF','#00FFFF','#FFA500','#800080','#008000','#000080',inline-block                '#FFC0CB','#A52A2A','#808080','#000000','#FFFFFF','#FFD700','#00FF7F','#FF69B4','#CD5C5C','#4B0082',30                '#00CED1','#7FFF00','#FF4500','#D2691E','#2E8B57'];; height: 30const paletteDiv = document.getElementById('palette');; margin: let currentColor = colors[0];px; border: colors.forEach(color => {px  const div = document.createElement('div');solid  div.className = 'color';pointer  div.style.backgroundColor = color;
+  div.addEventListener('click', () => currentColor = color);#  paletteDiv.appendChild(div); { margin-top: });px; }
+  let drawing = false; { margin: canvas.addEventListener('mousedown', () => drawing = true); canvas.addEventListener('mouseup', () => drawing = false);pxcanvas.addEventListener('mouseout', () => drawing = false);8canvas.addEventListener('mousemove', draw); 12function draw(e) {; font-size:   if (!drawing) return;px  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  ctx.fillStyle = currentColor;
+
+<h1>  ctx.arc(x, y, 10, 0, Math.PI*2);</h1>
+<p>}</p>
+
+<divdocument.getElementById('clearBtn').addEventListener('click', () => {id  ctx.clearRect(0,0,canvas.width,canvas.height);"canvasContainer"  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+});<canvas // --- See Real Version Button ---=document.getElementById('seeRealBtn').addEventListener('click', () => {   window.open('https://www.youtube.com/watch?v=YOUR_VIDEO_ID', '_blank'); // YouTube video linkinizi buraya qoyun=}); </script>="1050"</body>
+</html>
+
+<div id="palette"></div>
+
+<div id="controls">
+  <button id="clearBtn">Clear</button>
+  <button id="seeRealBtn">See the real version</button>
+</div>
+
+<script>
+// --- Setup Canvas ---
+const canvas = document.getElementById('paintCanvas');
+const ctx = canvas.getContext('2d');
+const img = new Image();
+img.src = 'tutu_bw.png'; // Qara-ağ şəkil repo-da
+img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+// --- Colors Palette ---
+const colors = ['#FF0000','#00FF00','#0000FF','#FFFF00','#FF00FF','#00FFFF','#FFA500','#800080','#008000','#000080',
+                '#FFC0CB','#A52A2A','#808080','#000000','#FFFFFF','#FFD700','#00FF7F','#FF69B4','#CD5C5C','#4B0082',
+                '#00CED1','#7FFF00','#FF4500','#D2691E','#2E8B57'];
+
+const paletteDiv = document.getElementById('palette');
+let currentColor = colors[0];
+
+colors.forEach(color => {
+  const div = document.createElement('div');
+  div.className = 'color';
+  div.style.backgroundColor = color;
+  div.addEventListener('click', () => currentColor = color);
+  paletteDiv.appendChild(div);
+});
+
+// --- Drawing ---
+let drawing = false;
+canvas.addEventListener('mousedown', () => drawing = true);
+canvas.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('mouseout', () => drawing = false);
+canvas.addEventListener('mousemove', draw);
+
+function draw(e) {
+  if (!drawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  ctx.fillStyle = currentColor;
+  ctx.beginPath();
+  ctx.arc(x, y, 10, 0, Math.PI*2);
+  ctx.fill();
+}
+
+// --- Clear Button ---
+document.getElementById('clearBtn').addEventListener('click', () => {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+});
+
+// --- See Real Version Button ---
+document.getElementById('seeRealBtn').addEventListener('click', () => {
+  window.open('https://www.youtube.com/watch?v=YOUR_VIDEO_ID', '_blank'); // YouTube video linkinizi buraya qoyun
+});
+</script>
+
+</body>
+</html>
